@@ -17,9 +17,34 @@ class ReposTableViewController: UITableViewController {
         
         self.tableView.accessibilityLabel = "tableView"
         
+        store.getRepositoriesFromAPI {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+        
+        GithubAPIClient.getRepositories {_ in 
+            print("get repos running")
+        }
+    
+        
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return store.repositories.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "repoCell" , for: indexPath)
+        
+        let data = store.repositories[(indexPath as IndexPath).row]
+        
+        cell.textLabel?.text = data.fullName
+        
+        
+        return cell
     }
 
-    // MARK: - Table view data source
- 
 
 }

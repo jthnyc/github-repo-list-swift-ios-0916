@@ -43,7 +43,7 @@ class ReposDataStoreSpec: QuickSpec {
                         let repo2 = store.repositories[1]
                         expect(repo2.fullName).to(equal("wycats/merb-core"))
                         expect(repo2.repositoryID).to(equal("26"))
-                        let htmlString = repo2.htmlURL.absoluteString
+                        let htmlString = repo2.htmlURL!.absoluteString
 //                        print("HTMLString: \(htmlString)")
                         let expected = "https://github.com/wycats/merb-core"
                         expect(htmlString).to(equal(expected))
